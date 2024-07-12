@@ -1,0 +1,55 @@
+
+<div class="d-flex justify-content-center register-form-container my-3 mx-auto">
+    <div class="text-center mb-2 fs-3 fs-bold">
+      Registration Form
+    </div>
+  
+    <form [formGroup]="registrationForm" class="form-class mx-auto" (ngSubmit)="submitVal(registrationForm)">
+  
+      <div class="d-flex mb-4">
+        <label for="username">Name:</label>
+        <div>
+          <input type="text" name="username" id="username"  formControlName="username" maxlength="10">
+          <div class="text-danger" *ngIf="registrationForm.get('username')?.errors?.required && (registrationForm.get('username')?.touched || registrationForm.get('username')?.dirty)">
+            Fill your name
+          </div>
+  
+          <div class="text-danger" *ngIf="(registrationForm.get('username')?.value.length < 3 && registrationForm.get('username')?.value.length > 0) || registrationForm.get('username')?.errors?.pattern">
+            <div *ngIf="registrationForm.get('username')?.value.length < 3 && !registrationForm.get('username')?.errors?.pattern">
+              must be min 3 characters
+            </div>            
+
+            <div class="text-danger" *ngIf="registrationForm.get('username')?.errors?.pattern">
+              name allowed only string
+            </div>
+          </div>
+            
+        </div>      
+      </div>
+  
+      <div class="d-flex mb-4">
+        <label for="email">Email: </label>
+        
+        <div>
+          <input type="email" name="email" id="email"  formControlName="email"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <!-- <div class="text-danger" *ngIf="email.errors?.required && (email.dirty || email.touched)">
+              Fill your email
+          </div> -->
+  
+          <!-- <div class="text-danger" *ngIf="email.errors?.pattern">
+            email is not proper
+        </div> -->
+        </div>
+      </div>
+
+      
+          
+      <div class="d-flex justify-content-center">
+        <button [disabled]="registrationForm.invalid">Submit</button>
+        
+      </div>
+  
+    </form>
+  
+  
+  </div>
