@@ -14,13 +14,17 @@ export class ReactiveFormComponent implements OnInit{
 
   countries: any[] = ["India", "Australia", "Japan", "USA", "France"];
 
-  countryCode: any[] = ["+91", "+0", "+1"];
+  genderAll = ['Male', 'Female', 'Others']
+
+  countryCode = ["+91", "+0", "+1"];
 
   defaultCode = "+91";
 
   defaultCountry = "";
 
   namePattern = "^[a-z]+$";
+
+  phonePattern = "^[0-9]*$";
 
   constructor(private fb: FormBuilder){
 
@@ -29,12 +33,12 @@ export class ReactiveFormComponent implements OnInit{
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       username: ["", [Validators.required, Validators.pattern(this.namePattern),Validators.minLength(3)]],
-      email: ""
+      email: ["", [Validators.required, Validators.email]],
+      phoneCode: [this.countryCode[1]],
+      phone: ["", [Validators.required,  Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.phonePattern)]],
+      dob: ["", [Validators.required]]
   });
-    new FormGroup({
-      username: new FormControl(""),
-      email: new FormControl("")
-    })
+    
   }
 
   submitVal(formVal: any){
