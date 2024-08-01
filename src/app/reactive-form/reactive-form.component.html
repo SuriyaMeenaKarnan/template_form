@@ -3,13 +3,17 @@
     <div class="text-center mb-2 fs-3 fs-bold">
       Registration Form
     </div>
+
+    <button (click)="storedData()" class="mb-2">
+        Local storage values
+    </button>
   
     <form [formGroup]="registrationForm" class="form-class mx-auto" (ngSubmit)="submitVal(registrationForm)">
   
       <div class="d-flex mb-4">
         <label for="username">Name:</label>
         <div>
-          <input type="text" name="username" id="username"  formControlName="username" maxlength="10">
+          <input type="text" name="username" id="username"  formControlName="username">
 
           <div>
             <div class="text-danger" *ngIf="registrationForm.get('username')?.errors?.required && (registrationForm.get('username')?.touched || registrationForm.get('username')?.dirty)">
@@ -77,7 +81,7 @@
                 Don't exceed 10 digits
               </div>
 
-              <div class="text-danger" *ngIf="registrationForm.get('phone')?.errors?.pattern && registrationForm.get('phone')?.errors?.minlength && !registrationForm.get('phone')?.errors?.maxlength">
+              <div class="text-danger" *ngIf="registrationForm.get('phone')?.errors?.pattern">
                 allow numbers only
               </div>
             </div>
@@ -132,77 +136,90 @@
       <div class="d-flex mb-4">
         <label for="pass">Password: </label>
         <div>
-          <input type="password" name="pass" id="pass">
-          <!-- <div *ngIf="pass.errors?.required && (pass.touched || pass.dirty)" class="text-danger">
+          <input type="password" name="pass" id="pass" formControlName="pass">
+          <div *ngIf="registrationForm.get('pass')?.errors?.required && (registrationForm.get('pass')?.touched || registrationForm.get('pass')?.dirty)" class="text-danger">
             Set password
           </div>
-          <div *ngIf="pass.errors?.pattern" class="text-danger">
-            Atleast one character, one number, one symbol and use the symbols only !@#$%^&*(),.?":
+
+          <div *ngIf="registrationForm.get('pass')?.errors?.pattern || registrationForm.get('pass')?.errors?.minlength || registrationForm.get('pass')?.errors?.maxlength">
+            <div *ngIf="registrationForm.get('pass')?.errors?.pattern && (registrationForm.get('pass')?.errors?.maxlength || registrationForm.get('pass')?.errors?.minlength  || registrationForm.get('pass')?.errors?.pattern)" class="text-danger">
+              Atleast one character, one number, one symbol and use the symbols only !@#$%^&*(),.?":
+            </div>
+  
+            <div *ngIf="registrationForm.get('pass')?.errors?.minlength && !registrationForm.get('pass')?.errors?.pattern" class="text-danger">
+              must be atleast 8 characters
+            </div>
+  
+            <div *ngIf="registrationForm.get('pass')?.errors?.maxlength && !registrationForm.get('pass')?.errors?.pattern" class="text-danger">
+              Don't exceed 20 characters
+            </div>
           </div>
-          <div *ngIf="pass.value.length < 8 && pass.value.length > 0" class="text-danger">
-            must be atleast 8 characters
-          </div> -->
+          
         </div>      
       </div>
   
       <div class="d-flex mb-4">
         <label for="pass">Confirm Password: </label>
         <div>
-          <input type="password" name="cPass" id="cPass">
-            <!-- <div *ngIf="cPass.errors?.required && (cPass.dirty || cPass.touched)" class="text-danger">
+          <input type="password" name="cPass" id="cPass" formControlName="cPass">
+            <div *ngIf="registrationForm.get('cPass')?.errors?.required && (registrationForm.get('cPass')?.dirty || registrationForm.get('cPass')?.touched)" class="text-danger">
                 Fill the confirm password
             </div>
             
-            <div *ngIf="(cPass.value !== pass.value) && cPass.value.length > 0" class="text-danger">
+            <div *ngIf="registrationForm.errors?.['PasswordNoMatch'] && (registrationForm.get('cPass')?.dirty || registrationForm.get('cPass')?.touched)" class="text-danger">
               Password and confirm password are not matched.
-            </div> -->
+            </div>
         </div>
       </div>
   
       <div class="d-flex mb-4">
         <label for="address">Address:</label>
         <div>
-          <textarea name="address" id="address"></textarea>
-          <!-- <div class="text-danger" *ngIf="address.errors?.required && (address.touched || address.dirty)">
-             Fill your address
+          <textarea name="address" id="address" formControlName="address"></textarea>
+
+          <div class="text-danger" *ngIf="registrationForm.get('address')?.errors?.required && (registrationForm.get('address')?.dirty || registrationForm.get('address')?.touched)">
+              Fill your address
           </div>
   
-          <div class="text-danger" *ngIf="address.value.length < 10 && address.value.length > 0">
+          <div class="text-danger" *ngIf="registrationForm.get('address')?.errors?.minlength">
             must be minumum 10 characters
-         </div> -->
+         </div>
+
+         <div class="text-danger" *ngIf="registrationForm.get('address')?.errors?.maxlength">
+          must be maximum 50 characters
+       </div>
         </div>
       </div>
   
       <div class="d-flex mb-4">
         <label for="country">Country: </label>
         <div>
-          <select name="country" id="country">
-            <option value="">Select your country</option>
-            <ng-container *ngFor="let country of countries">
-              <option value="{{country}}">{{ country }}</option>
+          <select name="country" id="country" formControlName="country"  [class]="registrationForm.get('country')?.value == 0 ? 'select-invalid': 'select-valid'">
+            <option value="0">Select your country</option>
+            <ng-container *ngFor="let eachCountry of countries">
+              <option value="{{eachCountry}}">{{ eachCountry }}</option>
             </ng-container>
           </select>
   
-          <!-- <div *ngIf="country.invalid && country.touched" class="text-danger">
+          <div *ngIf="registrationForm.get('country')?.value == 0 && (registrationForm.get('country')?.touched || registrationForm.get('country')?.dirty)" class="text-danger">
             Select your country
-          </div> -->
+          </div>
         </div>
       </div>
       
       <div class="mb-4">
         <div class="d-flex">
-          <input type="checkbox" name="agree" id="agree" class="me-2">
+          <input type="checkbox" name="agree" id="agree" class="me-2" formControlName="agree">
           <label for="agree" class="gender-lable">I agree above my details are correct</label>
         </div>
   
-        <!-- <div class="text-danger" *ngIf="agree.invalid && agree.touched">
+        <div class="text-danger" *ngIf="registrationForm.get('agree')?.errors && registrationForm.get('agree')?.dirty">
           Agree here to continue
-        </div> -->
+        </div>
       </div>
           
       <div class="d-flex justify-content-center">
-        <button [disabled]="registrationForm.invalid">Submit</button>
-        
+        <button [disabled]="registrationForm.invalid">Submit</button>        
       </div>
   
     </form>

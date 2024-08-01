@@ -25,3 +25,12 @@ label{
     width: fit-content;
     margin-right: 10px;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+form{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 16px;
+}

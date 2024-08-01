@@ -20,5 +20,4 @@ export class TemplateFormComponent {
   submitVal(data: any){    
     console.log(data);
   }
-
 }

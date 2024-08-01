@@ -1,187 +1,187 @@
 <div class="d-flex justify-content-center register-form-container my-3 mx-auto">
-    <div class="text-center mb-2 fs-3 fs-bold">
-      Registration Form
+  <div class="text-center mb-2 fs-3 fs-bold">
+    Registration Form
+  </div>
+
+  <form #registerForm="ngForm" class="form-class mx-auto" (ngSubmit)="submitVal(registerForm.value)">
+
+    <div class="d-flex mb-4">
+      <label for="username">Name:</label>
+      <div>
+        <input type="text" name="username" id="username" required  #username="ngModel" ngModel minlength="3" pattern="^[A-Za-z][A-Za-z\s]*$">
+        <div class="text-danger" *ngIf="username.errors?.required && (username.dirty || username.touched)">
+          Fill your name
+        </div>
+
+        <div class="text-danger" *ngIf="username?.value?.length < 3 && username?.value?.length > 0">
+          must be min 3 characters
+        </div>
+
+        <div class="text-danger" *ngIf="username.errors?.pattern">
+          name allowed only string
+        </div>
+      </div>      
     </div>
-  
-    <form #registerForm="ngForm" class="form-class mx-auto" (ngSubmit)="submitVal(registerForm.value)">
-  
-      <div class="d-flex mb-4">
-        <label for="username">Name:</label>
-        <div>
-          <input type="text" name="username" id="username" required  #username="ngModel" ngModel minlength="3" pattern="^[a-z]+$">
-          <div class="text-danger" *ngIf="username.errors?.required && (username.dirty || username.touched)">
-            Fill your name
-          </div>
-  
-          <div class="text-danger" *ngIf="username.value.length < 3 && username.value.length > 0">
-            must be min 3 characters
-          </div>
-  
-          <div class="text-danger" *ngIf="username.errors?.pattern">
-            name allowed only string
-          </div>
-        </div>      
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="email">Email: </label>
-        
-        <div>
-          <input type="email" name="email" id="email" required  #email="ngModel" ngModel pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-          <div class="text-danger" *ngIf="email.errors?.required && (email.dirty || email.touched)">
-              Fill your email
-          </div>
-  
-          <div class="text-danger" *ngIf="email.errors?.pattern">
-            email is not proper
+
+    <div class="d-flex mb-4">
+      <label for="email">Email: </label>
+      
+      <div>
+        <input type="email" name="email" id="email" required  #email="ngModel" ngModel pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <div class="text-danger" *ngIf="email.errors?.required && (email.dirty || email.touched)">
+            Fill your email
         </div>
-        </div>
+
+        <div class="text-danger" *ngIf="email.errors?.pattern">
+          email is not proper
       </div>
-  
-      <div class="d-flex mb-4">
-        <label for="phone">Phone: </label>
-  
+      </div>
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="phone">Phone: </label>
+
+      <div>
         <div>
-          <div>
-            <select name="phoneCode" id="phone-code" #phoneCode ngModel class="me-2 pb-1" [ngModel]="defaultCode">
-              <ng-container *ngFor="let cCode of countryCode" >              
-                <option value="{{ cCode }}">{{ cCode }}</option>
-              </ng-container>            
-            </select>
-            <input type="text" name="phone" id="phone" maxlength="10" pattern="^\d+$" #phone="ngModel" ngModel required>
-          </div>
-  
-          <div class="text-danger" *ngIf="phone.errors?.required && (phone.dirty || phone.touched)">
-              Fill your phone number
-          </div>
-  
-          <div class="text-danger" *ngIf="phone.value.length < 10 && phone.value.length > 0">
-            must be 10 digits
-          </div>
-  
-          <div class="text-danger" *ngIf="phone.errors?.pattern">
-            allow numbers only
-          </div>
-        </div>
-        
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="dob">DOB:</label>
-        <div>
-          <input type="date" name="dob" id="dob" #dob="ngModel" ngModel required>
-  
-          <div class="text-danger" *ngIf="dob.invalid && dob.touched">
-              Fill your date of birth
-          </div>
-        </div>
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="gender">Gender</label>
-        <div >
-          <div id="gender" class="d-inline-flex">
-            <div class="d-inline-flex">
-              <input type="radio" name="gender" id="gender1" class="me-1" value="male" checked [ngModel]="gender">
-              <label for="gender1" class="gender-lable">Male</label>
-            </div>
-    
-            <div class="d-inline-flex">
-              <input type="radio" name="gender" id="gender2" class="me-1" value="female" [ngModel]="gender">
-              <label for="gender2" class="gender-lable">Female</label>
-            </div>
-    
-            <div class="d-inline-flex">
-              <input type="radio" name="gender" id="gender3" class="me-1" value="others" [ngModel]="gender">
-              <label for="gender3" class="gender-lable">Others</label>
-            </div>
-          </div>
-  
-          <!-- <div class="text-danger" *ngIf="gender.required">
-            Select your gender
-          </div> -->
-          
-        </div>      
-        
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="pass">Password: </label>
-        <div>
-          <input type="password" name="pass" id="pass" pattern='^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":]).+$' required minlength="8" ngModel #pass="ngModel">
-          <div *ngIf="pass.errors?.required && (pass.touched || pass.dirty)" class="text-danger">
-            Set password
-          </div>
-          <div *ngIf="pass.errors?.pattern" class="text-danger">
-            Atleast one character, one number, one symbol and use the symbols only !@#$%^&*(),.?":
-          </div>
-          <div *ngIf="pass.value.length < 8 && pass.value.length > 0" class="text-danger">
-            must be atleast 8 characters
-          </div>
-        </div>      
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="pass">Confirm Password: </label>
-        <div>
-          <input type="password" name="cPass" id="cPass" required #cPass="ngModel" ngModel>
-            <div *ngIf="cPass.errors?.required && (cPass.dirty || cPass.touched)" class="text-danger">
-                Fill the confirm password
-            </div>
-            
-            <div *ngIf="(cPass.value !== pass.value) && cPass.value.length > 0" class="text-danger">
-              Password and confirm password are not matched.
-            </div>
-        </div>
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="address">Address:</label>
-        <div>
-          <textarea name="address" id="address" ngModel #address="ngModel" required minlength="10"></textarea>
-          <div class="text-danger" *ngIf="address.errors?.required && (address.touched || address.dirty)">
-             Fill your address
-          </div>
-  
-          <div class="text-danger" *ngIf="address.value.length < 10 && address.value.length > 0">
-            must be minumum 10 characters
-         </div>
-        </div>
-      </div>
-  
-      <div class="d-flex mb-4">
-        <label for="country">Country: </label>
-        <div>
-          <select name="country" id="country" ngModel [ngModel]="defaultCountry" required #country="ngModel">
-            <option value="">Select your country</option>
-            <ng-container *ngFor="let country of countries">
-              <option value="{{country}}">{{ country }}</option>
-            </ng-container>
+          <select name="phoneCode" id="phone-code" #phoneCode ngModel class="me-2 pb-1" [ngModel]="defaultCode">
+            <ng-container *ngFor="let cCode of countryCode" >              
+              <option value="{{ cCode }}">{{ cCode }}</option>
+            </ng-container>            
           </select>
-  
-          <div *ngIf="country.invalid && country.touched" class="text-danger">
-            Select your country
-          </div>
+          <input type="text" name="phone" id="phone" maxlength="10" pattern="^\d+$" #phone="ngModel" ngModel required>
+        </div>
+
+        <div class="text-danger" *ngIf="phone.errors?.required && (phone.dirty || phone.touched)">
+            Fill your phone number
+        </div>
+
+        <div class="text-danger" *ngIf="phone?.value?.length < 10 && phone?.value?.length > 0">
+          must be 10 digits
+        </div>
+
+        <div class="text-danger" *ngIf="phone.errors?.pattern">
+          allow numbers only
         </div>
       </div>
       
-      <div class="mb-4">
-        <div class="d-flex">
-          <input type="checkbox" name="agree" id="agree" class="me-2" required ngModel #agree="ngModel">
-          <label for="agree" class="gender-lable">I agree above my details are correct</label>
-        </div>
-  
-        <div class="text-danger" *ngIf="agree.invalid && agree.touched">
-          Agree here to continue
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="dob">DOB:</label>
+      <div>
+        <input type="date" name="dob" id="dob" #dob="ngModel" ngModel required>
+
+        <div class="text-danger" *ngIf="dob.invalid && dob.touched">
+            Fill your date of birth
         </div>
       </div>
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="gender">Gender</label>
+      <div >
+        <div id="gender" class="d-inline-flex">
+          <div class="d-inline-flex">
+            <input type="radio" name="gender" id="gender1" class="me-1" value="male" checked [ngModel]="gender">
+            <label for="gender1" class="gender-lable">Male</label>
+          </div>
   
-      <div class="d-flex justify-content-center">
-        <button [disabled]="registerForm.invalid">Submit</button>
+          <div class="d-inline-flex">
+            <input type="radio" name="gender" id="gender2" class="me-1" value="female" [ngModel]="gender">
+            <label for="gender2" class="gender-lable">Female</label>
+          </div>
+  
+          <div class="d-inline-flex">
+            <input type="radio" name="gender" id="gender3" class="me-1" value="others" [ngModel]="gender">
+            <label for="gender3" class="gender-lable">Others</label>
+          </div>
+        </div>
+
+        <!-- <div class="text-danger" *ngIf="gender.required">
+          Select your gender
+        </div> -->
         
+      </div>      
+      
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="pass">Password: </label>
+      <div>
+        <input type="password" name="pass" id="pass" pattern='^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":]).+$' required minlength="8" ngModel #pass="ngModel">
+        <div *ngIf="pass.errors?.required && (pass.touched || pass.dirty)" class="text-danger">
+          Set password
+        </div>
+        <div *ngIf="pass.errors?.pattern" class="text-danger">
+          Atleast one character, one number, one symbol and use the symbols only !@#$%^&*(),.?":
+        </div>
+        <div *ngIf="pass?.value?.length < 8 && pass?.value?.length > 0" class="text-danger">
+          must be atleast 8 characters
+        </div>
+      </div>      
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="pass">Confirm Password: </label>
+      <div>
+        <input type="password" name="cPass" id="cPass" required #cPass="ngModel" ngModel>
+          <div *ngIf="cPass.errors?.required && (cPass.dirty || cPass.touched)" class="text-danger">
+              Fill the confirm password
+          </div>
+          
+          <div *ngIf="(cPass?.value !== pass?.value) && cPass?.value?.length > 0" class="text-danger">
+            Password and confirm password are not matched.
+          </div>
       </div>
-  
-    </form>
-  
-  
-  </div>
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="address">Address:</label>
+      <div>
+        <textarea name="address" id="address" ngModel #address="ngModel" required minlength="10"></textarea>
+        <div class="text-danger" *ngIf="address.errors?.required && (address.touched || address.dirty)">
+           Fill your address
+        </div>
+
+        <div class="text-danger" *ngIf="address?.value?.length < 10 && address?.value?.length > 0">
+          must be minumum 10 characters
+       </div>
+      </div>
+    </div>
+
+    <div class="d-flex mb-4">
+      <label for="country">Country: </label>
+      <div>
+        <select name="country" id="country" ngModel [ngModel]="defaultCountry" required #country="ngModel">
+          <option value="" disabled>Select your country</option>
+          <ng-container *ngFor="let country of countries">
+            <option value="{{country}}">{{ country }}</option>
+          </ng-container>
+        </select>
+
+        <div *ngIf="country.invalid && country.touched" class="text-danger">
+          Select your country
+        </div>
+      </div>
+    </div>
+    
+    <div class="mb-4">
+      <div class="d-flex">
+        <input type="checkbox" name="agree" id="agree" class="me-2" required ngModel #agree="ngModel">
+        <label for="agree" class="gender-lable">I agree above my details are correct</label>
+      </div>
+
+      <div class="text-danger" *ngIf="agree.invalid && agree.touched">
+        Agree here to continue
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <button [disabled]="registerForm.invalid">Submit</button>
+      
+    </div>
+
+  </form>
+
+
+</div>

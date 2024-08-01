@@ -1,0 +1,24 @@
+.form-class .select-invalid.ng-touched,
+.form-class .ng-invalid.ng-touched,
+.form-class .ng-invalid.ng-dirty{
+    border: 1px #dc3545 solid;
+    
+}
+
+.form-class .select-invalid.ng-touched,
+.form-class .select-invalid.ng-touched:focus-visible{
+    box-shadow: 0.75px 0px 0px 1px #dc3545;
+    outline: none;
+}
+
+.select-valid.ng-touched,
+.form-class .ng-valid.ng-touched,
+.form-class .ng-valid.ng-dirty{
+    // border: 1px solid green;
+}
+
+.select-valid.ng-touched,
+.select-valid.ng-touched:focus-visible{
+    // box-shadow: 0.75px 0px 0px 1px green;
+    // outline: none;
+}

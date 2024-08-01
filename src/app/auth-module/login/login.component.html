@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center register-form-container my-3 mx-auto">
+    <div class="text-center mb-2 fs-3 fs-bold">
+      Login From
+    </div>
+    <div class="form-container" >
+        <form [formGroup]="loginForm" (ngSubmit)="loginSubmit(loginForm)">
+
+          <div class="d-flex mb-4">
+            <label for="email">Email: </label>
+            
+            <div>
+              <input type="email" name="email" id="email"  formControlName="email">
+    
+                <div>
+                  <div class="text-danger" *ngIf="loginForm.get('email')?.errors?.required && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+                    Fill your email
+                  </div>
+        
+                  <div class="text-danger" *ngIf="loginForm.get('email')?.errors?.email">
+                    email is not proper
+                  </div>
+    
+                </div>
+                
+            </div>
+          </div>
+
+          <div class="d-flex mb-4">
+            <label for="pass">Password: </label>
+            <div>
+              <input type="password" name="pass" id="pass" formControlName="pass">
+
+              <div *ngIf="loginForm.get('pass')?.errors?.required && (loginForm.get('pass')?.touched || loginForm.get('pass')?.dirty)" class="text-danger">
+                Passoword required*
+              </div>
+                              
+            </div>      
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <button [disabled]="loginForm.invalid">Submit</button>        
+          </div>
+
+        </form>
+    </div>
+</div>    
