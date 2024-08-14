@@ -9,12 +9,15 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { AuthModuleModule } from './auth-module/auth-module.module';
 import { LoggingModule } from './logging/logging.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthService } from './auth-module/authService/auth.service';
+import { CommonServiceService } from './common/common-service.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateFormComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormComponent,
     AppComponent
   ],
-  providers: [],
+  providers: [AuthService, CommonServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
