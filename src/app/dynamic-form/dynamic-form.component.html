@@ -1,0 +1,83 @@
+<div>
+  <form [formGroup]="dynamicForm" >
+    <button class="add-row-btn" (click)="addFormRow()">Add Row</button>
+
+    <div formArrayName="personalDetails" *ngFor="let EachWholeDetails of userDetails.controls; let i = index" class="my-2">
+      <!-- <div [formGroupName]=""> -->
+            <div class="input-container d-flex" [formGroupName]="i">
+              <div class="me-2">
+                <label for="userName">Name {{i+1}}</label>
+                <input type="text" formControlName="userName" name="userName" id="userName">                
+              </div>
+
+              <div class="me-2">
+                <label for="phone">Phone number {{i+1}}</label>
+                <input type="text" formControlName="phone" name="phone" id="phone"> 
+
+                <div class="error-msg" *ngIf="userDetails.controls[i].get('phone')?.touched || userDetails.controls[i].get('phone')?.dirty">
+                  <div *ngIf="userDetails.controls[i].get('phone')?.touched && userDetails.controls[i].get('phone')?.errors?.required">
+                      *Mobile number is required
+                  </div>
+
+                  <div *ngIf="userDetails.controls[i].get('phone')?.errors?.pattern">
+                     *must be number with 10 digits
+                  </div>
+                </div>
+              </div>
+
+              <div class="me-2">
+                <label for="email">Email {{i+1}}</label>
+                <input type="text" formControlName="email" name="email" id="email">
+
+                <div class="error-msg" *ngIf="(userDetails.controls[i].get('email')?.touched || userDetails.controls[i].get('email')?.dirty)">
+                    <div *ngIf="userDetails.controls[i].get('email')?.touched && userDetails.controls[i].get('email')?.errors?.required">
+                      *Email is required
+                    </div>
+
+                    <div *ngIf="userDetails.controls[i].get('email')?.errors?.email">
+                      *Mail not in proper
+                    </div>
+                </div>
+              </div>
+
+              <div class="me-2">
+                <label for="address">Address {{i+1}}</label>
+                <input type="text" formControlName="address" name="address" id="address">
+              </div>
+              <button [disabled]="userDetails.controls[i].invalid" (click)="eachFormVal(i)" >Submit</button>
+            </div>
+      <!-- </div> -->
+      
+    </div>
+
+      <button [disabled]="dynamicForm.invalid" class="ms-2" (click)="formVal(dynamicForm.value)">Save</button>
+  </form>
+
+  <div class="table-container">
+    <div>
+      {{allData[0]?.personalDetails?.userName}}  
+    </div>
+
+    
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let eachForm of allData; let i = index">
+            <td>{{ eachForm.userName }}</td>
+            <td>{{ eachForm.phone }}</td>
+            <td>{{eachForm.email}}</td>
+            <td>{{ eachForm.address }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<button (click)="download()">Download</button>
+
+<textarea
+  #textarea
+  [(ngModel)]="textContent"
+  (input)="adjustHeight(textarea)"
+  rows="1"
+></textarea>
+
+<table>
+    <thead>        
+        <tr >
+            <th *ngFor="let cols of tableDataCols">
+                {{cols}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container  *ngFor="let row of tableData">
+            <tr>
+                <td [attr.rowspan]="row.insideData.length + 1">
+                    {{row.rootName}}
+                </td>
+            </tr>
+            <tr *ngFor="let data of row.insideData">
+                <td>
+                    {{data.name}}
+                </td>
+                <td>
+                    {{data.desc}}
+                </td>
+                <td>
+                    {{data.status}}
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

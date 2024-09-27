@@ -1,3 +1,20 @@
+:disabled{
+    cursor: not-allowed;
+}
+
+.cricket{
+    position: relative;
+}
+
+.cricket{
+    background: url(../assets/images/logo.png);
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    content: "";
+    display: block;
+}
+
 .angular-form-tab{
     background-color: #001533;
     padding: 10px;
@@ -10,5 +27,6 @@
 .active{
     color: #001533;
     background-color: #ffffff;
-    border: 1px solid #001533;
+    border: 1px #001533 solid;
+    border-radius: 5px;
 }

@@ -33,6 +33,8 @@ export class ReactiveFormComponent implements OnInit, OnChanges{
 
   passPattern:string = '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":]).+$';
 
+  // promiseConvert
+
   constructor(private fb: FormBuilder, private route: Router, private aRoute:ActivatedRoute, private authService: AuthService, private cmnService:CommonServiceService,
     public snackBar: MatSnackBar,
   ){
@@ -95,6 +97,8 @@ export class ReactiveFormComponent implements OnInit, OnChanges{
 
   status:boolean = true;
 
+  
+
   submitVal(formVal: any){
     let userDetails = JSON.parse(this.cmnService.getItems("users")  || "[]" );
     
@@ -102,14 +106,15 @@ export class ReactiveFormComponent implements OnInit, OnChanges{
     console.log("status",status);
 
     if(status){
-      alert('already exists')
+      alert('already exists');
+      this.route.navigateByUrl('[login]')
     }
     else{
       userDetails.push(formVal.value)
       this.cmnService.setItems(userDetails,'users')
     }
     
-    let filterArr = []
+    // let filterArr = []
                     
       // if(userDetails.length > 1){
       //   for(let i=0; i<userDetails.length; i++){

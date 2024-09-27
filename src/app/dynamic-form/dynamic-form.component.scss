@@ -1,0 +1,22 @@
+form{
+    width: unset !important;
+}
+
+label{
+    width: unset;
+}
+
+.error-msg{
+    color: red;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+button:focus-visible{
+    outline: none;
+}
+
+th,
+td{
+    padding: 10px;
+}

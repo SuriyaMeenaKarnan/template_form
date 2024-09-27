@@ -1,0 +1,74 @@
+
+<button
+  mat-raised-button
+  class="menuTrigger"
+  [matMenuTriggerFor]="animals_menu"
+>
+  Animals <mat-icon>arrow_drop_down</mat-icon>
+</button>
+<!-- #docregion top level animal menu -->
+
+<mat-menu #animals_menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="amphibians_menu">
+    Amphibians ({{selectedAmphibianCount}})
+  </button>
+</mat-menu>
+
+<!-- #enddocregion top level animal menu -->
+<!-- #docregion data driven sub-menus -->
+
+<mat-menu #amphibians_menu="matMenu">
+  <button
+    mat-menu-item
+    *ngFor="let amphibian of amphibians"
+    (click)="selectAnimal($event, amphibian)"
+  >
+    <mat-icon color="{{amphibian.selected?'primary':''}}"
+      >{{amphibian.selected?'check_box':'check_box_outline_blank'}}</mat-icon
+    >{{amphibian.name}}
+  </button>
+</mat-menu>
+
+<!-- #enddocregion data driven sub-menus -->
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+    <table style="border: 1px solid black; margin: 20px;">
+      <tr *ngFor="let totData of planData; index as i" style="border: 1px solid black;">
+        <td style="border: 1px solid black;  padding: 10px">
+          {{ totData.name }}
+        </td>
+        <!-- <td>
+          {{ totData.days[i].a }}
+        </td>
+        <td>
+          {{ totData.days[i].b }}
+        </td>
+        <td>
+          {{ totData.days[i].c }}
+        </td>
+        <td>
+          {{ totData.days[i].d }}
+        </td> -->
+        <ng-container *ngFor="let eachDays of totData.days; index as j">
+            <td style="border: 1px solid black; padding: 10px;" *ngIf="totData.days[j].a" (click)="myValue(i, j, $event)" [ngClass]="{'selected': totData.days[j].status}">
+              {{ eachDays.a }}
+            </td>
+            <td style="border: 1px solid black;  padding: 10px;" *ngIf="totData.days[j].b" (click)="myValue(i, j, $event)" [ngClass]="{'selected': totData.days[j].status}">
+              {{ eachDays.b }}
+            </td>
+            <td style="border: 1px solid black;  padding: 10px;" *ngIf="totData.days[j].c" (click)="myValue(i, j, $event)" [ngClass]="{'selected': totData.days[j].status}">
+              {{ eachDays.c }}
+            </td>
+            <td style="border: 1px solid black;  padding: 10px;" *ngIf="totData.days[j].d" (click)="myValue(i, j, $event)" [ngClass]="{'selected': totData.days[j].status}">
+              {{ eachDays.d }}
+            </td>
+        </ng-container>
+        <td style="border: 1px solid black;  padding: 10px">
+          <button (click)="submit(i)">
+              SUBMIT
+          </button>
+        </td>
+      </tr>
+    </table>

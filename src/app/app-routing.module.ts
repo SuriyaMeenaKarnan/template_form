@@ -4,6 +4,9 @@ import { TemplateFormComponent } from './template-form/template-form.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { ProfileDetComponent } from './logging/profile-det/profile-det.component';
 import { LoginComponent } from './auth-module/login/login.component';
+import { TabledataComponent } from './tabledata/tabledata.component';
+import { MultipleSelectinMenuComponent } from './multiple-selectin-menu/multiple-selectin-menu.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,18 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileDetComponent
+  },
+  {
+    path: 'tableData',
+    component: TabledataComponent
+  },
+  {
+    path: 'selectInMenu',
+    component: MultipleSelectinMenuComponent
+  },
+  {
+    path: 'dynamic-form',
+    component: DynamicFormComponent
   }
 ];
 

@@ -139,7 +139,7 @@
 
           <div *ngIf="registrationForm.get('pass')?.errors?.pattern || registrationForm.get('pass')?.errors?.minlength || registrationForm.get('pass')?.errors?.maxlength">
             <div *ngIf="registrationForm.get('pass')?.errors?.pattern && (registrationForm.get('pass')?.errors?.maxlength || registrationForm.get('pass')?.errors?.minlength  || registrationForm.get('pass')?.errors?.pattern)" class="text-danger">
-              Atleast one character, one number, one symbol and use the symbols only !@#$%^&*(),.?":
+              Atleast one character, one number, one symbol and use the symbols only !/@#$%^&*(),.?":
             </div>
   
             <div *ngIf="registrationForm.get('pass')?.errors?.minlength && !registrationForm.get('pass')?.errors?.pattern" class="text-danger">
